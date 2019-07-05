@@ -8,27 +8,16 @@ const webpack = require('webpack')
 let resolve = (dir) => path.resolve(__dirname, dir)
 
 module.exports = {
-	// entry: ['@babel/polyfill', './src/index.js'],
-	// output: {
-	// 	path: path.resolve(__dirname, 'dist'), // output.path必须为绝对路径
-	// 	filename: 'bundle.js',
-	// 	publicPath: '/'
-	// },
 	entry: {
 		index: resolve('./src/index.js'),
 		other: resolve('./src/other.js')
 	},
 	output: {
 		filename: '[name][hash].js',
-		publicPath: '/'
+		publicPath: '/',
+		path: path.resolve(__dirname, './dist')
 	},
-	// output: {
-	// 	filename: '[name].js',
-	// 	publicPath: './',
-	// 	path: path.resolve(__dirname, '/dist')
-	// },
 	mode: 'development',     // mode默认production,区别就是代码是否混淆压缩
-	// mode: 'production',     // mode默认production,区别就是代码是否混淆压缩
 	// 开启监视模式，监视文件的变化自动打包
 	// watch: true,
 	devServer: {
@@ -42,7 +31,13 @@ module.exports = {
 		// 将src下面的html生成一个新目录
 		new HtmlWebpackPlugin({
 			filename: 'index.html', //打包后的名字
-			template: './src/index.html' // 模板文件
+			template: './src/index.html', // 模板文件
+			chunks: ['index', 'other']
+		}),
+		new HtmlWebpackPlugin({
+			filename: 'other.html', //打包后的名字
+			template: './src/other.html', // 模板文件
+			chunks: ['other']
 		}),
 		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin([{
@@ -88,13 +83,14 @@ module.exports = {
 						attrs: [':src', ':data-src']
 					}
 				}
+			},
+			{
+				test: require.resolve('jquery'), // 解析jQuery模块的绝对路径
+				use: {
+					loader: 'expose-loader',
+					options: '$' // 暴露一个$挂载到全局
+				}
 			}
-			// {
-			//     test: /\.(jpg|jpeg|gif|svg|bmp)$/, use: ['file-loader']
-			// },
-			// {
-			//     test: /\.(woff|woff2|eot|svg|ttf)$/, use: ['file-loader']
-			// }
 		]
 	},
 	devtool: 'cheap-module-eval-source-map'
