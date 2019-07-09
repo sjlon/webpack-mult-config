@@ -44,7 +44,12 @@ module.exports = {
 			from: path.resolve(__dirname, 'assets'),
 			to: 'assets'
 		}]),
-		new webpack.BannerPlugin('webpack BanenrPlugin添加注释信息')
+        new webpack.BannerPlugin('webpack BanenrPlugin添加注释信息'),
+        // 使用webpack.ProvidePlugin将库自动加载到每一个模块
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
+        })
 	],
 	module: {
 		rules: [
