@@ -11,8 +11,8 @@
     "dev2": "webpack-dev-server --hot --compress --contentBase src --open --port 8090",
     "dev1": "webpack-dev-server",
     "server": "node server.js",
-    "dev": "webpack-dev-server --config ./webpack.dev.js",
-    "build": "webpack --config ./webpack.prod.js"
+    "dev": "webpack-dev-server --config ./build/webpack.dev.js",
+    "build": "webpack --config ./build/webpack.prod.js"
   },
   "keywords": [],
   "author": "",

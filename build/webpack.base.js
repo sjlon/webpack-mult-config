@@ -16,7 +16,7 @@ module.exports = {
 	output: {
 		filename: '[name]-[hash].js',
 		publicPath: '',
-		path: path.resolve(__dirname, './dist')
+		path: path.resolve(__dirname, '../dist')
 	},
 	plugins: [
 		// 将src下面的html生成一个新目录
@@ -32,7 +32,7 @@ module.exports = {
 		}),
 		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin([{
-			from: path.resolve(__dirname, 'assets'),
+			from: path.resolve(__dirname, '../assets'),
 			to: 'assets'
 		}]),
 		new webpack.BannerPlugin('webpack BanenrPlugin添加注释信息'),
