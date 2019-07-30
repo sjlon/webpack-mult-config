@@ -9,13 +9,13 @@ let resolve = (dir) => path.resolve(__dirname, dir)
 
 module.exports = {
 	entry: {
-		index: resolve('./src/index.js'),
-		other: resolve('./src/other.js')
+		index: './src/index.js',
+		other: './src/other.js'
 	},
 	output: {
 		filename: '[name][hash].js',
-		publicPath: './',
-		path: path.resolve(__dirname, './dist')
+		publicPath: '/',
+		path: path.resolve(__dirname, '..','./dist')
 	},
 	// mode: 'development',     // mode默认production,区别就是代码是否混淆压缩
 	// 开启监视模式，监视文件的变化自动打包
@@ -30,18 +30,18 @@ module.exports = {
 	plugins: [
 		// 将src下面的html生成一个新目录
 		new HtmlWebpackPlugin({
-			filename: 'index.html', //打包后的名字
+			filename: './index.html', //打包后的名字
 			template: './src/index.html', // 模板文件
 			chunks: ['index', 'other']
 		}),
 		new HtmlWebpackPlugin({
-			filename: 'other.html', //打包后的名字
+			filename: './other.html', //打包后的名字
 			template: './src/other.html', // 模板文件
 			chunks: ['other']
 		}),
 		new CleanWebpackPlugin(),
 		new CopyWebpackPlugin([{
-			from: path.resolve(__dirname, 'assets'),
+			from: path.resolve(__dirname, '../assets'),
 			to: 'assets'
 		}]),
         new webpack.BannerPlugin('webpack BanenrPlugin添加注释信息'),
