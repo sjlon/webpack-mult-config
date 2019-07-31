@@ -1,5 +1,6 @@
 const merge = require('webpack-merge')
 const baseConfig = require('./webpack.base.js')
+const webpack = require('webpack')
 module.exports = merge(baseConfig, {
 	devServer: {
 		open: true, //自动打开
@@ -9,5 +10,10 @@ module.exports = merge(baseConfig, {
 		contentBase: './' //根目录
 	},
 	mode: 'development', // mode默认production,区别就是代码是否混淆压缩
-	devtool: 'cheap-module-eval-source-map'
+	devtool: 'cheap-module-eval-source-map',
+	plugins: [
+		new webpack.DefinePlugin({
+			IS_DEV: 'true'
+		})
+	]
 })
